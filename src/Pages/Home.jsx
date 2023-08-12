@@ -9,6 +9,19 @@ function Home() {
     console.log(yourResponse)
     const captureText = (event) => {
         if (event.key == 'Enter') {
+            async () => {
+                const response = await fetch("https://hardikchat.netlify.app/.netlify/functions/ChatAI", {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        message: { role: "user", content: "Hello world" }
+                    }),
+                    headers: {
+                        'Content-type': 'application/json; charset=UTF-8'
+                    }
+                });
+                const Chat = await response.json();
+                console.log(Chat)
+            }
             setYourResponse((old) => {
                 return (
                     [...old, currentChatInput]
