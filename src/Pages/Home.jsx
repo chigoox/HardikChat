@@ -16,8 +16,7 @@ function Home() {
 
 
     const openai = new OpenAIApi(configuration);
-    const handleSubmit = async (e) => {
-        e.preventDefault();
+    const handleSubmit = async () => {
         const response = await openai.createCompletion({
             prompt: 'hello world',
             model: "text-davinci-003",
@@ -25,6 +24,7 @@ function Home() {
             max_tokens: 1000,
         })
         const message = response.data.choices[0].text
+        console.log(message)
         setAiResponse(message);
     }
 
