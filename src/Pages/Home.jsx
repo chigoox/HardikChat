@@ -19,7 +19,7 @@ function Home() {
         if (event.key == 'Enter') {
             const getchat = async () => {
                 const response = await fetch("https://hardikchat.netlify.app/.netlify/functions/ChatAI", {
-                    method: 'POST',
+                    method: 'POST', //
                     body: JSON.stringify({
                         message: { role: "user", content: "Hello world" }
                     }),
