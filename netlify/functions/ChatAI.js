@@ -13,7 +13,7 @@ export const handler = async (req, res) => {
 const openai = new OpenAIApi(configuration);
 const response = await openai.createChatCompletion({
     model: "gpt-3.5-turbo",
-    messages: [messages],
+    prompt: [messages],
 });
 
 
