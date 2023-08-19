@@ -15,24 +15,8 @@ function Home() {
 
 
 
-    const openai = new OpenAIApi(configuration);
-    const handleSubmit = async () => {
-        const response = await openai.createCompletion({
-            prompt: 'hello world',
-            model: "text-davinci-003",
-            temperature: 0,
-            max_tokens: 1000,
-        })
-        const message = response.data.choices[0].text
-        console.log(message)
-        setAiResponse(message);
-    }
-
-
-
     const captureText = (event) => {
         if (event.key == 'Enter') {
-            handleSubmit()
             const getchat = async () => {
                 const response = await fetch("https://hardikchat.netlify.app/.netlify/functions/ChatAI", {
                     method: 'POST',
@@ -46,7 +30,7 @@ function Home() {
                 const Chat = await response.json();
                 console.log(Chat)
             }
-            // getchat()
+            getchat()
             setYourResponse((old) => {
                 return (
                     [...old, currentChatInput]
