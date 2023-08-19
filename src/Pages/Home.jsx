@@ -1,14 +1,38 @@
 import React, { useState } from 'react'
 import { color } from '../MyCodes/colors'
-console.log(color)
+import { Configuration, OpenAIApi } from "openai";
+
+const api = process.env.CHATGPT_API;
+const configuration = new Configuration({
+    apiKey: api
+});
 
 function Home() {
     const [yourResponse, setYourResponse] = useState([])
     const [aiResponse, setAiResponse] = useState([])
     const [currentChatInput, setCurrentChatInput] = useState('')
     console.log(yourResponse)
+
+
+
+    const openai = new OpenAIApi(configuration);
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const response = await openai.createCompletion({
+            prompt: 'hello world',
+            model: "text-davinci-003",
+            temperature: 0,
+            max_tokens: 1000,
+        })
+        const message = response.data.choices[0].text
+        setAiResponse(message);
+    }
+
+
+
     const captureText = (event) => {
         if (event.key == 'Enter') {
+            handleSubmit()
             const getchat = async () => {
                 const response = await fetch("https://hardikchat.netlify.app/.netlify/functions/ChatAI", {
                     method: 'POST',
@@ -22,7 +46,7 @@ function Home() {
                 const Chat = await response.json();
                 console.log(Chat)
             }
-            getchat()
+            // getchat()
             setYourResponse((old) => {
                 return (
                     [...old, currentChatInput]
