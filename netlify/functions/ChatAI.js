@@ -10,8 +10,8 @@ export const handler = async (req, res) => {
   const messages = request.messages
   
 
-const openai = new OpenAIApi(configuration);
-const response = await openai.createChatCompletion({
+const openai2 = new OpenAIApi(configuration);
+const response = await openai2.createChatCompletion({
     model: "gpt-3.5-turbo",
     prompt: [messages],
 });
